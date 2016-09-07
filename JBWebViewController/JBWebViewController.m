@@ -221,12 +221,14 @@
 #pragma mark - "Right buttons"
 
 - (void)share {
+    NSURL *shareUrl = _webView.request.URL.absoluteString.length > 0 ? _webView.request.URL : _url;
+    
     // Create instances of third-party share actions
     ARSafariActivity *safariActivity = [[ARSafariActivity alloc] init];
     ARChromeActivity *chromeActivity = [[ARChromeActivity alloc] init];
     
     // Create share controller from our url
-    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[self.webView.request.URL] applicationActivities:@[safariActivity, chromeActivity]];
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[shareUrl] applicationActivities:@[safariActivity, chromeActivity]];
     
     // If device is iPad
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
